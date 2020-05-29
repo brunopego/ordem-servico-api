@@ -5,6 +5,7 @@ import java.time.OffsetDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.brunopego.domain.exception.EntidadeNaoEncontradaException;
 import com.brunopego.domain.exception.NegocioException;
 import com.brunopego.domain.model.Cliente;
 import com.brunopego.domain.model.Comentario;
@@ -40,7 +41,7 @@ public class GestaoOrdemServicoService {
 	public Comentario adicionarComentario(Long ordemServicoId, String descricao) {
 		
 		OrdemServico ordemServico = ordemServicoRepository.findById(ordemServicoId)
-				.orElseThrow(() -> new NegocioException("Ordem de serviçonão encontrada"));
+				.orElseThrow(() -> new EntidadeNaoEncontradaException("Ordem de serviço não encontrada"));
 		
 		Comentario comentario = new Comentario();
 		comentario.setDataEnvio(OffsetDateTime.now());
